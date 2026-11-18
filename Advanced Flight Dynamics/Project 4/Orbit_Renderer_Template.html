@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project 4 · Orbital Renderer</title>
+<style>
+:root{color-scheme:dark;--ink:#eef4fc;--muted:#97a6bb;--line:#ffffff17;--blue:#56d9ed;--gold:#ffc36c;--panel:#0c1524e8}
+*{box-sizing:border-box}body{margin:0;overflow:hidden;background:#02060e;color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;font-size:14px}button,input,select{font:inherit}button,select{color:var(--ink);border:1px solid #344154;background:#152235;border-radius:8px;padding:9px 13px;cursor:pointer}button:hover,select:hover{background:#23364d}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--blue);outline-offset:3px}button.active{border-color:var(--blue);background:#123640;color:#aaf1ff}button:disabled{opacity:.45;cursor:default}canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}#stage{position:absolute;left:294px;right:0;top:0;bottom:113px}#sidebar{position:absolute;left:0;top:0;bottom:113px;width:294px;padding:28px 23px;background:linear-gradient(150deg,#101c2ded,#080f1bed);border-right:1px solid var(--line);overflow:auto}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:700;color:var(--blue)}h1{font-size:26px;line-height:1.13;letter-spacing:-1px;margin:12px 0 9px;font-weight:600}.sub{color:var(--muted);font-size:12px;line-height:1.6}.badge{display:inline-flex;align-items:center;gap:7px;border:1px solid #283e4d;background:#0d2631;padding:7px 9px;font-size:10px;letter-spacing:.6px;border-radius:6px;margin-top:14px;color:#a4e6ef}.badge.demo{border-color:#785a28;background:#342610;color:#ffcb82}.dot{width:6px;height:6px;display:inline-block;border-radius:50%;background:currentColor}.section{border-top:1px solid var(--line);margin-top:23px;padding-top:19px}.caption{color:#7f90a7;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:11px;font-weight:700}.viewbuttons{display:flex;gap:6px}.viewbuttons button{flex:1;font-size:12px;padding:10px 6px}.readout{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:14px 0}.readout span{font-size:12px;color:var(--muted)}.readout strong{font-variant-numeric:tabular-nums;font-size:19px;font-weight:500}.readout small{font-size:11px;color:var(--muted);margin-left:3px}.vector{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}.vector div{background:#ffffff04;border:1px solid var(--line);border-radius:7px;padding:10px 5px;text-align:center}.vector span{display:block;color:#7e91ad;font-size:9px;text-transform:uppercase;margin-bottom:6px}.vector b{font-size:12px;font-weight:500;font-variant-numeric:tabular-nums}.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:11px;color:#c2cede;align-items:center;margin-top:16px}.legend i{display:inline-block;width:7px;height:7px;margin-right:5px;border-radius:50%}.switch{display:flex;align-items:center;gap:9px;margin:11px 0;font-size:12px;color:#bdcbdd;cursor:pointer}.switch input{accent-color:var(--blue)}#note{color:#7e91ab;font-size:11px;line-height:1.6;margin-top:16px}#topHUD{position:absolute;left:25px;top:24px;pointer-events:none}.sceneTitle{font-size:12px;letter-spacing:1.7px;font-weight:600;text-transform:uppercase}.sceneSub{font-size:11px;color:#93a8bf;margin-top:7px}#help{position:absolute;right:24px;top:25px;color:#8c9fb6;font-size:11px;text-align:right;line-height:1.7;pointer-events:none}.tag{position:absolute;padding:5px 8px;background:#08101bd9;border:1px solid #ffffff26;border-left:2px solid var(--blue);border-radius:4px;font-size:10px;white-space:nowrap;pointer-events:none;transform:translate(13px,-50%);color:#cbf8ff}.tag.follower{border-left-color:var(--gold);color:#ffddb0}.tag.target{border-left-color:#d3c8ff;color:#d3c8ff}#footer{position:absolute;bottom:0;left:0;right:0;height:113px;border-top:1px solid var(--line);padding:15px 25px 12px;background:#0b1422}.controls{display:flex;gap:12px;align-items:center}#play{min-width:100px;background:#b9eef6;color:#09202a;border-color:#b9eef6;font-weight:600}#restart{font-size:12px}.clock{font-variant-numeric:tabular-nums;font-size:20px;font-weight:500;min-width:125px}.clock small{font-size:11px;color:#8c9fb6}.speedlabel{font-size:11px;color:#91a4bc;margin-left:auto}#speed{padding:7px 9px;width:88px}#timeline{width:100%;height:15px;accent-color:var(--blue);cursor:pointer;margin:13px 0 0}#timeEnds{display:flex;justify-content:space-between;color:#6d829c;font-size:10px;font-variant-numeric:tabular-nums}#failure{display:none;position:absolute;inset:0;background:#0b1422ee;z-index:10;padding:15%;font-size:16px;line-height:1.7}#resetCamera{position:absolute;bottom:19px;right:23px;font-size:11px;background:#0b1422c9}#scaleLabel{position:absolute;bottom:23px;left:25px;font-size:10px;color:#9dafc5;letter-spacing:.3px;pointer-events:none}.hidden{display:none!important}
+@media(max-width:800px){#sidebar{width:230px;padding:20px 15px}#stage{left:230px}h1{font-size:23px}#help{display:none}.viewbuttons{flex-direction:column}#footer{padding:14px 15px}.controls{gap:7px}.clock{min-width:100px;font-size:17px}#restart{padding:9px}#topHUD{left:16px}#scaleLabel{left:16px;max-width:60%}#resetCamera{right:12px}#speed{width:75px}}
+@media(max-width:560px){#sidebar{width:180px;padding:17px 12px}#stage{left:180px}.sub,.extra,.vector{display:none}h1{font-size:20px}.section{margin-top:17px;padding-top:14px}.readout{display:block}.readout strong{display:block;margin-top:5px}.legend{gap:9px}.clock{min-width:85px;font-size:15px}.speedlabel{display:none}#play{min-width:74px;padding:9px}#footer{height:113px}#topHUD{top:18px}.sceneTitle{font-size:10px}.sceneSub{font-size:10px}.badge{font-size:8px}#resetCamera{bottom:14px;font-size:9px}#scaleLabel{bottom:52px;max-width:88%;font-size:9px}}
+/* Arcade presentation: crisp pixels, square controls, no overlay filters. */
+body{font-family:Consolas,"Courier New",monospace}button,select,.badge,.tag,.vector div{border-radius:0}canvas{image-rendering:pixelated}#sidebar{background:#081522}h1{letter-spacing:0;text-transform:uppercase;font-size:25px}.pixelControl{display:flex;align-items:center;justify-content:space-between;color:#bdcbdd;font-size:12px;margin:14px 0}#pixels{padding:6px 8px;width:80px}
+</style>
+</head>
+<body>
+<aside id="sidebar">
+  <div class="eyebrow">FLIGHT DYNAMICS / 04</div>
+  <h1>Relative<br>orbit.</h1>
+  <div class="sub">Leader–follower motion, rendered from the simulation state history.</div>
+  <div class="badge" id="dataBadge"><span class="dot"></span><span id="dataKind">SIMULATION DATA</span></div>
+  <div id="demoNote" class="hidden" style="font-size:11px;color:#e7b975;line-height:1.6;margin-top:9px">Preview data — run Project4_Main for your simulation.</div>
+  <div class="section">
+    <div class="caption">Camera</div>
+    <div class="viewbuttons"><button id="formation">Formation</button><button id="earth" class="active">Earth orbit</button></div>
+    <div class="legend"><span><i style="background:var(--blue)"></i>Leader</span><span><i style="background:var(--gold)"></i>Follower</span></div>
+  </div>
+  <div class="section">
+    <div class="caption">Live telemetry</div>
+    <div class="readout"><span>Separation</span><div><strong id="separation">—</strong><small>m</small></div></div>
+    <div class="readout"><span>Target error</span><div><strong id="error">—</strong><small>m</small></div></div>
+    <div class="readout"><span>Relative speed</span><div><strong id="velocity">—</strong><small>m/s</small></div></div>
+    <div class="vector"><div><span>Radial x</span><b id="rx">—</b></div><div><span>Along y</span><b id="ry">—</b></div><div><span>Normal z</span><b id="rz">—</b></div></div>
+    <div class="sub extra" style="margin-top:8px">LVLH position in metres</div>
+  </div>
+  <div class="section">
+    <div class="caption">Arcade scene</div>
+    <label class="pixelControl" for="pixels">Pixel size<select id="pixels"><option value="1">1x</option><option value="2" selected>2x</option><option value="3">3x</option><option value="4">4x</option></select></label>
+    <label class="switch"><input type="checkbox" id="targetToggle" checked>Show target position</label>
+    <label class="switch"><input type="checkbox" id="trailToggle" checked>Show path history</label>
+    <label class="switch"><input type="checkbox" id="nodesToggle" checked>Equator + AN / DN</label>
+    <label class="switch"><input type="checkbox" id="loopToggle" checked>Loop playback</label>
+    <div id="note">The leader is the origin of this rotating LVLH view. Spacecraft shapes and attitudes are illustrative; their centre positions use the simulation.</div>
+  </div>
+</aside>
+<main id="stage">
+  <canvas id="scene" aria-label="Interactive 3D rendering of leader and follower spacecraft" tabindex="0"></canvas>
+  <div id="topHUD"><div class="sceneTitle" id="sceneTitle">Formation / LVLH</div><div class="sceneSub" id="sceneSub">Circular leader orbit · 6898 km semimajor axis</div></div>
+  <div id="help">Left drag: orbit / right drag: pan<br>Shift + left drag: pan<br>Scroll to zoom · Space to pause</div>
+  <div id="leaderTag" class="tag">LEADER</div><div id="followerTag" class="tag follower">FOLLOWER</div><div id="targetTag" class="tag target">TARGET</div>
+  <div id="anTag" class="tag target">AN</div><div id="dnTag" class="tag target">DN</div>
+  <div id="scaleLabel">True metre separations · illustrative spacecraft geometry</div>
+  <button id="resetCamera">Reset camera</button>
+  <div id="failure" role="alert"></div>
+</main>
+<footer id="footer">
+  <div class="controls"><button id="play">Pause</button><button id="restart">Restart</button><div class="clock"><span id="clock">0.0</span> <small>s</small></div><label class="speedlabel" for="speed">Playback speed</label><select id="speed" aria-label="Playback speed"><option value="1">1×</option><option value="10">10×</option><option value="25">25×</option><option value="50" selected>50×</option><option value="100">100×</option><option value="250">250×</option></select></div>
+  <input type="range" id="timeline" min="0" max="1" step="0.001" value="0" aria-label="Simulation time">
+  <div id="timeEnds"><span id="startTime">0 s</span><span id="endTime">1000 s</span></div>
+</footer>
+<script id="simulation-data" type="application/json">__PROJECT4_DATA_JSON__</script>
+<script>
+/* Offline WebGL renderer. The only input is the JSON state history above.
+ * Positions are LVLH metres. Orbital reconstruction is a circular reference
+ * orbit plus the exact LVLH-to-ECI rotation of each relative position. */
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+function fail(message){$('failure').style.display='block';$('failure').textContent=message;$('play').disabled=true;}
+let data;
+try{data=JSON.parse($('simulation-data').textContent);}catch(error){fail('No simulation data are embedded yet. Run Project4_Main in MATLAB to generate the completed renderer.');return;}
+if(!Array.isArray(data.time)||data.time.length<2||!Array.isArray(data.state)||data.state.length!==data.time.length||data.state.some(s=>!Array.isArray(s)||s.length<6||s.some(v=>!Number.isFinite(v)))||data.time.some((t,i)=>!Number.isFinite(t)||(i>0&&t<=data.time[i-1]))){fail('The renderer needs at least two strictly increasing time samples and finite N-by-6 state data.');return;}
+const orbit=data.orbit, target=data.target||[50,50,0];
+if(!orbit||!Number.isFinite(orbit.a)||orbit.a<=0||!Number.isFinite(orbit.mu)||orbit.mu<=0){fail('The circular leader orbit parameters are missing or invalid.');return;}
+const canvas=$('scene');
+const gl=canvas.getContext('webgl',{antialias:false,alpha:false,powerPreference:'high-performance'});
+if(!gl){fail('WebGL is unavailable. Open this file in a current Chrome, Edge, Firefox, or Safari browser with hardware acceleration enabled.');return;}
+const start=data.time[0], finish=data.time[data.time.length-1], duration=finish-start;
+const rad=Math.PI/180, n=Math.sqrt(orbit.mu/Math.pow(orbit.a,3)), er=orbit.earthRadius||6378100;
+const inc=orbit.inclinationDeg*rad, raan=orbit.raanDeg*rad, arg=orbit.argPeriapsisDeg*rad, nu0=orbit.trueAnomaly0Deg*rad;
+const cO=Math.cos(raan),sO=Math.sin(raan),ci=Math.cos(inc),si=Math.sin(inc),cw=Math.cos(arg),sw=Math.sin(arg);
+const p=[cO*cw-sO*sw*ci,sO*cw+cO*sw*ci,sw*si];
+const q=[-cO*sw-sO*cw*ci,-sO*sw+cO*cw*ci,cw*si];
+const normal=[sO*si,-cO*si,ci];
+const ascendingNode=[orbit.a*cO,orbit.a*sO,0],descendingNode=ascendingNode.map(v=>-v);
+const vadd=(a,b)=>a.map((v,i)=>v+b[i]);
+const vsub=(a,b)=>a.map((v,i)=>v-b[i]);
+const mul=(a,s)=>a.map(v=>v*s);
+const dot=(a,b)=>a.reduce((sum,v,i)=>sum+v*b[i],0);
+const norm=a=>Math.hypot(...a);
+const unit=a=>mul(a,1/(norm(a)||1));
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+function atTime(t){
+ let lo=0,hi=data.time.length-1;
+ while(hi-lo>1){const mid=(lo+hi)>>1;if(data.time[mid]<=t)lo=mid;else hi=mid;}
+ const f=Math.max(0,Math.min(1,(t-data.time[lo])/(data.time[hi]-data.time[lo])));
+ return data.state[lo].map((x,k)=>x+f*(data.state[hi][k]-x));
+}
+function eciAt(t,rho){
+ const angle=nu0+n*(t-start),c=Math.cos(angle),s=Math.sin(angle);
+ const radial=vadd(mul(p,c),mul(q,s)),tangent=vadd(mul(p,-s),mul(q,c));
+ const leader=mul(radial,orbit.a);
+ return {leader,follower:vadd(leader,vadd(mul(radial,rho[0]),vadd(mul(tangent,rho[1]),mul(normal,rho[2])))),radial,tangent,normal:normal.slice()};
+}
+function identity(){return new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]);}
+function mm(a,b){const out=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)out[c*4+r]+=a[k*4+r]*b[c*4+k];return out;}
+function perspective(fov,aspect,near,far){const f=1/Math.tan(fov/2),nf=1/(near-far);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*nf,-1,0,0,2*far*near*nf,0]);}
+function lookAt(eye,center,up){const z=unit(vsub(eye,center)),x=unit(cross(up,z)),y=cross(z,x);return new Float32Array([x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-dot(x,eye),-dot(y,eye),-dot(z,eye),1]);}
+function model(position,scale,basis){const b=basis||[[1,0,0],[0,1,0],[0,0,1]],m=identity();for(let j=0;j<3;j++)for(let i=0;i<3;i++)m[j*4+i]=b[j][i]*scale[j];m[12]=position[0];m[13]=position[1];m[14]=position[2];return m;}
+function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
+function program(vs,fs){const pr=gl.createProgram();gl.attachShader(pr,shader(gl.VERTEX_SHADER,vs));gl.attachShader(pr,shader(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);if(!gl.getProgramParameter(pr,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(pr));return pr;}
+const vs=`attribute vec3 aPosition;attribute vec3 aNormal;attribute vec3 aColor;uniform mat4 uModel;uniform mat4 uVP;uniform vec3 uColor;uniform vec3 uLight;uniform float uKind;varying mediump vec3 vColor;void main(){float light=1.0;if(uKind<3.5){vec3 normal=normalize(mat3(uModel)*aNormal);light=.27+.73*max(dot(normal,normalize(uLight)),0.0);}vColor=aColor*uColor*light;gl_Position=uVP*uModel*vec4(aPosition,1.0);gl_PointSize=1.0;}`;
+const fs=`precision mediump float;varying mediump vec3 vColor;void main(){gl_FragColor=vec4(vColor,1.0);}`;
+let pr;
+try{pr=program(vs,fs);}catch(error){fail('The graphics renderer could not start: '+error.message);return;}
+const loc={};for(const name of ['uModel','uVP','uColor','uLight','uKind'])loc[name]=gl.getUniformLocation(pr,name);
+const posLoc=gl.getAttribLocation(pr,'aPosition'),normLoc=gl.getAttribLocation(pr,'aNormal'),colorLoc=gl.getAttribLocation(pr,'aColor');
+function mesh(positions,normals,indices,mode,colors){const m={count:indices?indices.length:positions.length/3,mode:mode===undefined?gl.TRIANGLES:mode};for(const [key,values] of [['p',positions],['n',normals],['c',colors||positions.map(()=>1)]]){m[key]=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,m[key]);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(values),gl.STATIC_DRAW);}if(indices){m.i=gl.createBuffer();gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,m.i);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(indices),gl.STATIC_DRAW);}return m;}
+function builder(){return {positions:[],normals:[],colors:[]};}
+function triangle(b,a,c,d,color){const normal=unit(cross(vsub(c,a),vsub(d,a)));for(const point of [a,c,d]){b.positions.push(...point);b.normals.push(...normal);b.colors.push(...color);}}
+function finishMesh(b){return mesh(b.positions,b.normals,null,gl.TRIANGLES,b.colors);}
+function earthMesh(){
+ const b=builder(),lat=10,lon=20;
+ const point=(y,x)=>[Math.sin(y*Math.PI/lat)*Math.cos(x*2*Math.PI/lon),Math.sin(y*Math.PI/lat)*Math.sin(x*2*Math.PI/lon),Math.cos(y*Math.PI/lat)];
+ function face(a,c,d){const center=unit(mul(vadd(a,vadd(c,d)),1/3));const terrain=Math.sin(center[0]*7.1+center[2]*2.2)+.61*Math.sin(center[1]*8.4-center[2]*4.1)+.34*Math.cos(center[2]*10.2+center[0]*3.7);const color=Math.abs(center[2])>.9?[.71,.86,.94]:terrain>.48?[.13,.48,.32]:[.045,.21,.53];triangle(b,a,c,d,color);}
+ for(let y=0;y<lat;y++)for(let x=0;x<lon;x++){const a=point(y,x),c=point(y+1,x),d=point(y,x+1),e=point(y+1,x+1);if(y>0)face(a,c,d);if(y<lat-1)face(c,e,d);}
+ return finishMesh(b);
+}
+function addBox(b,center,scale,color){const faces=[[[1,-1,-1],[1,1,-1],[1,1,1],[1,-1,1]],[[-1,1,-1],[-1,-1,-1],[-1,-1,1],[-1,1,1]],[[-1,1,-1],[-1,1,1],[1,1,1],[1,1,-1]],[[1,-1,-1],[1,-1,1],[-1,-1,1],[-1,-1,-1]],[[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]],[[-1,1,-1],[1,1,-1],[1,-1,-1],[-1,-1,-1]]];for(const f of faces){const v=f.map(point=>point.map((x,i)=>center[i]+x*scale[i]));triangle(b,v[0],v[1],v[2],color);triangle(b,v[0],v[2],v[3],color);}}
+function craftMesh(color){const b=builder();addBox(b,[0,0,0],[2.6,2,2],color);addBox(b,[0,0,0],[.3,11,.25],[.56,.7,.81]);for(const side of [-1,1])addBox(b,[0,side*7.4,0],[3,4.6,.15],[.055,.23,.64]);const ring=[[1.1,0,2.8],[0,1.1,2.8],[-1.1,0,2.8],[0,-1.1,2.8]];for(let i=0;i<4;i++){triangle(b,[0,0,4],ring[i],ring[(i+1)%4],[.82,.91,.95]);triangle(b,[0,0,2],ring[(i+1)%4],ring[i],[.82,.91,.95]);}return finishMesh(b);}
+const globe=earthMesh(),leaderCraft=craftMesh([.12,.85,.95]),followerCraft=craftMesh([1,.65,.2]);
+const pathPoints=data.state.map(s=>s.slice(0,3));
+const pathMesh=mesh(pathPoints.flat(),pathPoints.map(()=>[0,0,1]).flat(),null,gl.LINE_STRIP);
+const leaderPoints=[],followerPoints=[];
+for(let i=0;i<data.time.length;i++){const e=eciAt(data.time[i],data.state[i]);leaderPoints.push(...mul(e.leader,.001));followerPoints.push(...mul(e.follower,.001));}
+const leaderPath=mesh(leaderPoints,leaderPoints.map(()=>0),null,gl.LINE_STRIP),followerPath=mesh(followerPoints,followerPoints.map(()=>0),null,gl.LINE_STRIP);
+const circlePoints=[];for(let j=0;j<=256;j++)circlePoints.push(...mul(vadd(mul(p,Math.cos(j*2*Math.PI/256)),mul(q,Math.sin(j*2*Math.PI/256))),orbit.a/1000));
+const orbitMesh=mesh(circlePoints,circlePoints.map(()=>0),null,gl.LINE_STRIP);
+const equatorPoints=[];for(let j=0;j<=128;j++){const angle=j*2*Math.PI/128;equatorPoints.push(orbit.a/1000*Math.cos(angle),orbit.a/1000*Math.sin(angle),0);}
+const equatorMesh=mesh(equatorPoints,equatorPoints.map(()=>0),null,gl.LINE_STRIP);
+const nodePoints=[];for(const edge of [[[1,0,0],[0,1,0]],[[0,1,0],[-1,0,0]],[[-1,0,0],[0,-1,0]],[[0,-1,0],[1,0,0]],[[0,0,-1],[0,0,1]]])nodePoints.push(...edge[0],...edge[1]);
+const nodeMesh=mesh(nodePoints,nodePoints.map(()=>0),null,gl.LINES);
+const ringPoints=[];for(let plane=0;plane<3;plane++)for(let j=0;j<12;j++){for(const a of [j*2*Math.PI/12,(j+1)*2*Math.PI/12]){let v=[0,0,0];v[(plane+1)%3]=Math.cos(a);v[(plane+2)%3]=Math.sin(a);ringPoints.push(...v);}}
+const ring=mesh(ringPoints,ringPoints.map(()=>0),null,gl.LINES);
+let seed=6321;function random(){seed=(1664525*seed+1013904223)>>>0;return seed/4294967296;}
+const starPoints=[];for(let j=0;j<160;j++){const z=2*random()-1,a=random()*Math.PI*2,r=Math.sqrt(1-z*z);starPoints.push(r*Math.cos(a),r*Math.sin(a),z);}
+const stars=mesh(starPoints,starPoints.slice(),null,gl.POINTS);
+let simTime=start,playing=true,speed=50,mode='earth',lastTime=null,yaw=.7,pitch=.45,distance=0;
+let dirty=true,rafPending=false,pixelSize=2,renderedFrames=0,lastTelemetry=-Infinity;
+function requestFrame(){if(!rafPending&&!document.hidden){rafPending=true;requestAnimationFrame(frame);}}
+function invalidate(){dirty=true;requestFrame();}
+let frameEye=[1,1,1],frameVP=identity(),currentState=atTime(simTime),drag=null,viewCenter=[0,0,0],panOffset=[0,0,0];
+const ext=Math.max(80,...data.state.map(s=>norm(s.slice(0,3))),norm(target));
+const cameraSettings={formation:{yaw:.7,pitch:.45,distance:ext*2.4},earth:{yaw:raan+Math.PI/2,pitch:.8,distance:orbit.a/1000*3.05}};
+function resetCamera(){const c=cameraSettings[mode];yaw=c.yaw;pitch=c.pitch;distance=c.distance;panOffset=[0,0,0];invalidate();}
+resetCamera();
+function setView(next){mode=next;resetCamera();$('formation').classList.toggle('active',mode==='formation');$('earth').classList.toggle('active',mode==='earth');$('sceneTitle').textContent=mode==='formation'?'Formation / LVLH':'Low Earth orbit / ECI';$('sceneSub').textContent=mode==='formation'?'Rotating with the leader | true metre separations':'Altitude '+((orbit.a-er)/1000).toFixed(1)+' km | Inclination '+orbit.inclinationDeg+' deg | RAAN '+orbit.raanDeg+' deg';$('scaleLabel').textContent=mode==='formation'?'True metre separations | illustrative spacecraft geometry':'Cyan: reference orbit | Purple: equatorial plane | AN / DN: leader nodes';$('note').textContent=mode==='formation'?'The leader is the origin of this rotating LVLH view. Spacecraft shapes and attitudes are illustrative; their centre positions use the simulation.':'One enlarged spacecraft symbol represents the pair. Their actual trails nearly overlap at Earth scale; select Formation for the interaction in metres. AN / DN mark the leader reference orbit.';invalidate();}
+function setPlaying(value){playing=value;lastTime=null;$('play').textContent=playing?'Pause':'Play';invalidate();}
+function draw(m,mat,color,kind,count){gl.uniformMatrix4fv(loc.uModel,false,mat);gl.uniform3fv(loc.uColor,color);gl.uniform1f(loc.uKind,kind||0);gl.bindBuffer(gl.ARRAY_BUFFER,m.p);gl.enableVertexAttribArray(posLoc);gl.vertexAttribPointer(posLoc,3,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ARRAY_BUFFER,m.n);gl.enableVertexAttribArray(normLoc);gl.vertexAttribPointer(normLoc,3,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ARRAY_BUFFER,m.c);gl.enableVertexAttribArray(colorLoc);gl.vertexAttribPointer(colorLoc,3,gl.FLOAT,false,0,0);if(m.i){gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,m.i);gl.drawElements(m.mode,count||m.count,gl.UNSIGNED_SHORT,0);}else gl.drawArrays(m.mode,0,count===undefined?m.count:count);}
+function setProjection(eye,center,near,far){frameEye=eye;frameVP=mm(perspective(43*rad,canvas.width/canvas.height,near,far),lookAt(eye,center,[0,0,1]));gl.uniformMatrix4fv(loc.uVP,false,frameVP);}
+function craft(center,scale,color,basis){const geometry=color[0]>.5?followerCraft:leaderCraft;draw(geometry,model(center,[scale,scale,scale],basis),[1,1,1],0);}
+function tag(id,point,text){const el=$(id),m=frameVP,x=point[0],y=point[1],z=point[2],w=m[3]*x+m[7]*y+m[11]*z+m[15];const px=(m[0]*x+m[4]*y+m[8]*z+m[12])/w,py=(m[1]*x+m[5]*y+m[9]*z+m[13])/w,pz=(m[2]*x+m[6]*y+m[10]*z+m[14])/w;if(w<=0||Math.abs(px)>1.05||Math.abs(py)>1.05||pz>1){el.style.display='none';return;}el.style.display='block';el.style.left=(px*.5+.5)*canvas.clientWidth+'px';el.style.top=(-py*.5+.5)*canvas.clientHeight+'px';if(text)el.textContent=text;}
+function planetOccludes(point,eye){const direction=vsub(point,eye),length2=dot(direction,direction);if(length2===0)return false;const closest=Math.max(0,Math.min(1,-dot(eye,direction)/length2));return norm(vadd(eye,mul(direction,closest)))<er/1000;}
+function indexAt(t){let lo=0,hi=data.time.length;while(lo<hi){let mid=(lo+hi)>>1;if(data.time[mid]<=t)lo=mid+1;else hi=mid;}return lo;}
+function resize(){const width=Math.max(1,canvas.clientWidth/pixelSize),height=Math.max(1,canvas.clientHeight/pixelSize),fit=Math.min(1,960/width,720/height),w=Math.max(1,Math.round(width*fit)),h=Math.max(1,Math.round(height*fit));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}gl.viewport(0,0,w,h);}
+function render(){
+ renderedFrames++;resize();gl.clearColor(.008,.018,.036,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(pr);gl.enable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);gl.uniform3fv(loc.uLight,unit([.7,-.5,1]));
+ const state=currentState,rho=state.slice(0,3),e=eciAt(simTime,rho),cp=Math.cos(pitch);
+ viewCenter=vadd(mode==='formation'?mul(rho,.5):[0,0,0],panOffset);
+ const eye=vadd(viewCenter,[distance*cp*Math.cos(yaw),distance*cp*Math.sin(yaw),distance*Math.sin(pitch)]);
+ const starRadius=mode==='formation'?3e7:8e4;
+ setProjection(eye,viewCenter,mode==='formation'?1e3:10,starRadius*2);
+ gl.depthMask(false);draw(stars,model(eye,[starRadius,starRadius,starRadius]),[.48,.6,.77],4);gl.depthMask(true);
+ if(mode==='formation'){
+   $('anTag').style.display='none';$('dnTag').style.display='none';
+   draw(globe,model([-orbit.a,0,0],[er,er,er]),[1,1,1],3);
+   gl.clear(gl.DEPTH_BUFFER_BIT);setProjection(eye,viewCenter,.2,Math.max(15000,distance*5));
+   if($('trailToggle').checked)draw(pathMesh,identity(),[.53,.35,.17],4,indexAt(simTime));
+   if($('targetToggle').checked){draw(ring,model(target,[5,5,5]),[.65,.58,.88],4);tag('targetTag',target,'TARGET');}else $('targetTag').style.display='none';
+   craft([0,0,0],1,[.12,.77,.87]);craft(rho,1,[.95,.54,.18]);
+   tag('leaderTag',[0,0,0],'LEADER');tag('followerTag',rho,'FOLLOWER');
+ }else{
+   setProjection(eye,viewCenter,10,1e5);draw(globe,model([0,0,0],[er/1000,er/1000,er/1000]),[1,1,1],3);
+   draw(orbitMesh,identity(),[.16,.46,.55],4);
+   if($('nodesToggle').checked){
+     draw(equatorMesh,identity(),[.46,.3,.6],4);
+     for(const [id,node,label] of [['anTag',ascendingNode,'AN / ASCENDING'],['dnTag',descendingNode,'DN / DESCENDING']]){const point=mul(node,.001);draw(nodeMesh,model(point,[145,145,145]),[.88,.67,1],4);if(!planetOccludes(point,eye))tag(id,point,label);else $(id).style.display='none';}
+   }else{$('anTag').style.display='none';$('dnTag').style.display='none';}
+   if($('trailToggle').checked){draw(leaderPath,identity(),[.16,.65,.76],4,indexAt(simTime));draw(followerPath,identity(),[.95,.6,.24],4,indexAt(simTime));}
+   const leader=mul(e.leader,.001),follower=mul(e.follower,.001),basis=[e.radial,e.tangent,e.normal];
+   craft(leader,13,[.12,.77,.87],basis);
+   // A single enlarged proxy avoids z-fighting between sub-pixel-separated craft.
+   // Both actual ECI trajectories are retained in the path meshes and debug API.
+   const blocked=planetOccludes(leader,eye);
+   if(!blocked)tag('leaderTag',leader,'LEADER + FOLLOWER');else $('leaderTag').style.display='none';
+   $('followerTag').style.display='none';$('targetTag').style.display='none';
+ }
+}
+function telemetry(){const s=currentState;$('clock').textContent=simTime.toFixed(1);$('timeline').value=(simTime-start)/duration;$('separation').textContent=norm(s.slice(0,3)).toFixed(1);$('error').textContent=norm(vsub(s.slice(0,3),target)).toFixed(1);$('velocity').textContent=norm(s.slice(3,6)).toFixed(3);['rx','ry','rz'].forEach((id,i)=>$(id).textContent=s[i].toFixed(1));}
+function frame(now){
+ rafPending=false;
+ if(document.hidden){lastTime=null;return;}
+ const delta=lastTime===null?0:Math.max(0,(now-lastTime)/1000);lastTime=now;
+ if(playing){simTime+=delta*speed;if(simTime>finish){if($('loopToggle').checked)simTime=start+(simTime-start)%duration;else{simTime=finish;setPlaying(false);}}}
+ if(playing||dirty){const updateNow=dirty;currentState=atTime(simTime);render();dirty=false;if(updateNow||now-lastTelemetry>=100){telemetry();lastTelemetry=now;}}
+ if(playing)requestFrame();
+}
+$('formation').onclick=()=>setView('formation');$('earth').onclick=()=>setView('earth');$('resetCamera').onclick=resetCamera;
+$('play').onclick=()=>{if(!playing&&simTime>=finish)simTime=start;setPlaying(!playing);};$('restart').onclick=()=>{simTime=start;lastTime=null;currentState=atTime(simTime);telemetry();invalidate();};$('speed').onchange=()=>{speed=Number($('speed').value);lastTime=null;invalidate();};
+$('pixels').onchange=()=>{pixelSize=Number($('pixels').value);invalidate();};
+for(const id of ['targetToggle','trailToggle','loopToggle','nodesToggle'])$(id).addEventListener('change',invalidate);
+$('timeline').addEventListener('input',()=>{simTime=start+Number($('timeline').value)*duration;lastTime=null;currentState=atTime(simTime);telemetry();invalidate();});
+canvas.addEventListener('contextmenu',ev=>ev.preventDefault());
+canvas.addEventListener('pointerdown',ev=>{if(ev.button!==0&&ev.button!==2)return;ev.preventDefault();canvas.setPointerCapture(ev.pointerId);drag={x:ev.clientX,y:ev.clientY,pan:ev.button===2||ev.shiftKey};});
+canvas.addEventListener('pointermove',ev=>{if(!drag)return;const dx=ev.clientX-drag.x,dy=ev.clientY-drag.y;if(drag.pan||ev.shiftKey){const backward=[Math.cos(pitch)*Math.cos(yaw),Math.cos(pitch)*Math.sin(yaw),Math.sin(pitch)],right=unit(cross([0,0,1],backward)),up=cross(backward,right),scale=2*distance*Math.tan(43*rad/2)/Math.max(1,canvas.clientHeight);panOffset=vadd(panOffset,vadd(mul(right,-dx*scale),mul(up,dy*scale)));}else{yaw-=dx*.007;pitch=Math.max(-1.45,Math.min(1.45,pitch+dy*.007));}drag={x:ev.clientX,y:ev.clientY,pan:drag.pan};invalidate();});
+canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('pointercancel',()=>drag=null);
+canvas.addEventListener('wheel',ev=>{ev.preventDefault();distance*=Math.exp(ev.deltaY*.001);distance=Math.max(mode==='formation'?25:er/1000*1.1,Math.min(mode==='formation'?ext*15:orbit.a/1000*12,distance));invalidate();},{passive:false});
+document.addEventListener('keydown',ev=>{if(ev.code==='Space'&&!['INPUT','SELECT','BUTTON'].includes(document.activeElement.tagName)){ev.preventDefault();setPlaying(!playing);}});
+window.addEventListener('resize',invalidate);
+document.addEventListener('visibilitychange',()=>{lastTime=null;if(!document.hidden)invalidate();});
+canvas.addEventListener('webglcontextlost',ev=>{ev.preventDefault();setPlaying(false);fail('The graphics context was lost. Reload this file to restart the renderer.');});
+$('startTime').textContent=start.toFixed(1)+' s';$('endTime').textContent=finish.toFixed(1)+' s';
+$('sceneSub').textContent='Circular leader orbit · '+(orbit.a/1000).toFixed(0)+' km semimajor axis';
+if(data.demo){$('dataKind').textContent='PREVIEW DATA';$('dataBadge').classList.add('demo');$('demoNote').classList.remove('hidden');$('dataBadge').title='Numerically reconstructed preview. Run MATLAB to render your actual Simulink output.';}
+window.Project4RendererDebug={eciAt,atTime,getState:()=>({time:simTime,mode,playing,speed,state:currentState.slice(),cameraDistance:distance,panOffset:panOffset.slice(),nodes:{ascending:ascendingNode.slice(),descending:descendingNode.slice()},stats:{earthTriangles:globe.count/3,craftTriangles:leaderCraft.count/3,stars:stars.count,pixelSize,renderedFrames,framebuffer:[canvas.width,canvas.height]}}),setTime:t=>{simTime=Math.max(start,Math.min(finish,t));currentState=atTime(simTime);setPlaying(false);telemetry();invalidate();},setView};
+setView('earth');telemetry();requestFrame();
+})();
+</script>
+</body>
+</html>

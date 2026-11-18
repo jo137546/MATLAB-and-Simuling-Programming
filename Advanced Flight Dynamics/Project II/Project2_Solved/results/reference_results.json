@@ -1,0 +1,248 @@
+{
+  "provenance": "Independent numerical reference - MATLAB/Simulink not executed",
+  "executed_software": "Python / SciPy solve_ivp",
+  "matlab_or_simulink_executed": false,
+  "method": "DOP853, quaternion attitude, inertial velocity, geometric rotor moments",
+  "rtol": 1e-11,
+  "atol": 1e-13,
+  "maximum_step_s": 0.05,
+  "duration_s": 15.0,
+  "output_time_step_s": 0.01,
+  "position_convention": [
+    "north",
+    "east",
+    "positive altitude"
+  ],
+  "body_axes": [
+    "forward",
+    "right",
+    "down"
+  ],
+  "parameters": {
+    "k1": 1.0,
+    "k2": 0.75,
+    "central_mass_kg": 0.25,
+    "each_motor_mass_kg": 0.01,
+    "total_mass_kg": 0.29,
+    "arm_m": 0.2,
+    "sphere_radius_m": 0.03,
+    "gravity_mps2": 9.8,
+    "principal_inertias_kgm2": [
+      0.0008900000000000002,
+      0.0008900000000000002,
+      0.0016900000000000005
+    ],
+    "rotor_inputs": [
+      0.7105,
+      0.7105,
+      0.7105,
+      0.7105
+    ],
+    "total_thrust_N": 2.842,
+    "net_rotor_moment_Nm": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "cases": {
+    "hover": {
+      "initial_position_m": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "initial_euler_angles_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_body_velocity_mps": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_body_rates_degps": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "computed_final_position_m": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "computed_final_euler_angles_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "computed_final_body_velocity_mps": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "computed_final_body_rates_degps": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytical_final_position_m": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "analytical_final_euler_angles_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "numerical_errors_against_analytical_trim": {
+        "maximum_position_error_m": 0.0,
+        "maximum_angle_error_deg": 0.0,
+        "maximum_body_velocity_error_mps": 0.0,
+        "maximum_body_rate_error_degps": 0.0,
+        "maximum_quaternion_norm_error": 0.0
+      },
+      "trim_comparison_passed": true,
+      "plot_file": "hover_independent_reference.png",
+      "rhs_evaluations": 4568
+    },
+    "spin": {
+      "initial_position_m": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "initial_euler_angles_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_body_velocity_mps": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_body_rates_degps": [
+        0.0,
+        0.0,
+        20.0
+      ],
+      "computed_final_position_m": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "computed_final_euler_angles_deg": [
+        0.0,
+        0.0,
+        299.99999999999994
+      ],
+      "computed_final_body_velocity_mps": [
+        0.0,
+        0.0,
+        -5.561496595139101e-15
+      ],
+      "computed_final_body_rates_degps": [
+        0.0,
+        0.0,
+        20.0
+      ],
+      "analytical_final_position_m": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "analytical_final_euler_angles_deg": [
+        0.0,
+        0.0,
+        300.0
+      ],
+      "numerical_errors_against_analytical_trim": {
+        "maximum_position_error_m": 0.0,
+        "maximum_angle_error_deg": 1.0177774980683254e-13,
+        "maximum_body_velocity_error_mps": 5.642367281031346e-15,
+        "maximum_body_rate_error_degps": 0.0,
+        "maximum_quaternion_norm_error": 4.440892098500626e-16
+      },
+      "trim_comparison_passed": true,
+      "plot_file": "spin_independent_reference.png",
+      "rhs_evaluations": 4517
+    },
+    "sluf": {
+      "initial_position_m": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "initial_euler_angles_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "initial_body_velocity_mps": [
+        5.0,
+        0.0,
+        0.0
+      ],
+      "initial_body_rates_degps": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "computed_final_position_m": [
+        74.9999999999996,
+        0.0,
+        10.0
+      ],
+      "computed_final_euler_angles_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "computed_final_body_velocity_mps": [
+        5.0,
+        0.0,
+        0.0
+      ],
+      "computed_final_body_rates_degps": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "analytical_final_position_m": [
+        75.0,
+        0.0,
+        10.0
+      ],
+      "analytical_final_euler_angles_deg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "numerical_errors_against_analytical_trim": {
+        "maximum_position_error_m": 3.979039320256561e-13,
+        "maximum_angle_error_deg": 0.0,
+        "maximum_body_velocity_error_mps": 0.0,
+        "maximum_body_rate_error_degps": 0.0,
+        "maximum_quaternion_norm_error": 0.0
+      },
+      "trim_comparison_passed": true,
+      "plot_file": "sluf_independent_reference.png",
+      "rhs_evaluations": 4532
+    }
+  },
+  "internal_reference_validation": {
+    "description": "Coupled torque-free rotation; checks this independent Python reference, not the MATLAB files",
+    "duration_s": 3.0,
+    "initial_body_rates_radps": [
+      0.3,
+      -0.2,
+      0.4
+    ],
+    "maximum_relative_rotational_energy_drift": 5.616172869647781e-16,
+    "maximum_relative_inertial_angular_momentum_drift": 6.83441024118897e-16,
+    "passed": true
+  }
+}
