@@ -1,0 +1,54 @@
+clear; clc;
+
+%%%% be careful with these dummy! %%%%
+
+t = 0:1:25; % SYNTAX -> var = initialize:steps:finalize
+
+K_meas = [0.5, 0.25, 0.125, 0, 0];
+K_truth = [0.2, 0.1, 0.05, 0.0001, 0.0001];
+
+lambda_meas = [-0.15, -0.06, -0.03];
+lambda_truth = [-0.1, -0.05, -0.025];
+
+omega_meas = [0.26, 0.55, 0.95];
+omega_truth = [0.25, 0.5, 1];
+
+delta_meas = [0.01, 0.01, 0.01];
+delta_truth = [0, 0, 0];
+
+sigma = 0.0002;
+
+%need help making this loop for each value to kive k1, k2, k3 ... matrix
+%%%% Starting estimate components %%%%
+A1 = K_start(1) * exp(lambda_start(1)*t);
+B1 = omega_start(1)*t + delta_start(1);
+
+C1 = K_start(2) * exp(lambda_start(2)*t);
+D1 = omega_start(2)*t + delta_start(2);
+
+E1 = K_start(3) * exp(lambda_start(3)*t);
+F1 = omega_start(3)*t + delta_start(3);
+
+%%%% True components %%%%
+A2 = K_truth(1) * exp(lambda_truth(1)*t);
+B2 = omega_truth(1)*t + delta_truth(1);
+
+C2 = K_truth(2) * exp(lambda_truth(2)*t);
+D2 = omega_truth(2)*t + delta_truth(2);
+
+E2 = K_truth(3) * exp(lambda_truth(3)*t);
+F2 = omega_truth(3)*t + delta_truth(3);
+
+%%%% Four functions %%%%
+theta_start = A1.*cos(B1) + C1.*cos(D1) + E1.*cos(F1) + K_start(4);
+psi_start   = A1.*sin(B1) + C1.*sin(D1) + E1.*sin(F1) + K_start(5);
+
+theta_truth = A2.*cos(B2) + C2.*cos(D2) + E2.*cos(F2) + K_truth(4);
+psi_truth   = A2.*sin(B2) + C2.*sin(D2) + E2.*sin(F2) + K_truth(5);
+
+%%%% Measurements %%%%
+rng(1);
+
+theta_meas = theta_truth + sigma*randn(size(t));
+psi_meas   = psi_truth   + sigma*randn(size(t));
+
